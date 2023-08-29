@@ -1,18 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function usePokemonList(url, type){
+function usePokemonList(type){
     const [pokemonListState, setPokemonListState] = useState({
         pokemonList: [],
         isLoading: true,
-        pokedexUrl: url,        // api
+        pokedexUrl: 'https://pokeapi.co/api/v2/pokemon',        // api
         nextUrl: '',                                            // to set at next button
-        prevUrl: ''                                             // to set at prev button
+        prevUrl: '',                                             // to set at prev button
     });
 
     async function downloadPokemon(){
 
-        setPokemonListState({...pokemonListState, isLoading: true})     //isLoading set
+        setPokemonListState({...pokemonListState, isLoading: true});   //isLoading set
 
         const response = await axios.get(pokemonListState.pokedexUrl); // this downloads list of 20 pokemons
 
@@ -25,16 +25,7 @@ function usePokemonList(url, type){
             nextUrl:response.data.next, 
             prevUrl:response.data.previous 
         }));
-       
-       // iterating over the array of pokemons, and using thier url, to create an array of promises
-       // that will download those 20 pokemons
 
-       if(type){
-        setPokemonListState((state)=> ({        //nextUrl, prevUrl set
-            ...state, 
-            pokemonList: response.data.pokemon.slice(0,5)
-        }));
-       }else{
         const pokemonResultPromise = pokemonResults.map((pokemon)=> axios.get(pokemon.url));
 
         // passing that promise array to axios.all
@@ -44,24 +35,22 @@ function usePokemonList(url, type){
         // now iterate on the data of each pokemon, and extraxt id, name, image, types
 
         const pokeListResult = pokemonData.map((pokeData)=>{
-                const pokemon = pokeData.data;
-                return {
-                    id: pokemon.id,
-                    name: pokemon.name, 
-                    image: (pokemon.sprites.other) ? pokemon.sprites.other.dream_world.front_default : pokemon.sprites.front_shiny , 
-                    types: pokemon.types
-                }
-            })
+            const pokemon = pokeData.data;
+            return {
+                id: pokemon.id,
+                name: pokemon.name, 
+                image: (pokemon.sprites.other) ? pokemon.sprites.other.dream_world.front_default : pokemon.sprites.front_shiny , 
+                types: pokemon.types
+            };
+        });
 
-            console.log(pokeListResult);
+        console.log(pokeListResult);
 
-            setPokemonListState((state)=>({     //pokemonList, isLoading set
-                ...state, 
-                pokemonList: pokeListResult, 
-                isLoading: false
-            }))
-        };
-        
+        setPokemonListState((state)=>({     //pokemonList, isLoading set
+            ...state, 
+            pokemonList: pokeListResult, 
+            isLoading: false
+        }));
     };
 
     useEffect(()=>{
@@ -69,7 +58,6 @@ function usePokemonList(url, type){
     }, [pokemonListState.pokedexUrl])
 
     return {pokemonListState, setPokemonListState};
-
 }
 
 export default usePokemonList;

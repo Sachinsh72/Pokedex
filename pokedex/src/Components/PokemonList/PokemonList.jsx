@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-import axios from 'axios';
 import './PokemonList.css'
 import Pokemon from "../Pokemon/Pokemon";
 import usePokemonList from "../../hooks/usePokemonList";
 
 function PokemonList(){
 
-    const {pokemonListState, setPokemonListState} = usePokemonList('https://pokeapi.co/api/v2/pokemon');   // call custom hook
+    const {pokemonListState, setPokemonListState} = usePokemonList(false);   // call custom hook
 
     return (
         <div className="pokemon-list-wrapper">
