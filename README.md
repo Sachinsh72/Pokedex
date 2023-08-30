@@ -1,5 +1,5 @@
 # Pokedex-React-and-Tailwind-CSS
-Design a react and tailwind based pokemon gallery which handle a API of pokemon collection with the detailed, allowing users to see the collection and it also get the name, image, height, weigth and type of pokemon. 
+Design a react and tailwind based pokemon gallery which handle a API of pokemon collection with the detailed, allowing users to see the collection and it also get the name, image, height, weight and type of pokemon. 
 
 <img width="946" alt="Screenshot 2023-08-30 150558" src="https://github.com/Sachinsh72/Pokedex/assets/91846348/c336ed0b-1ef3-4696-bd6e-25c30018b12e">
 <img width="950" alt="Screenshot 2023-08-30 150631" src="https://github.com/Sachinsh72/Pokedex/assets/91846348/269d1448-9402-484f-a582-ecb6356ce046">
